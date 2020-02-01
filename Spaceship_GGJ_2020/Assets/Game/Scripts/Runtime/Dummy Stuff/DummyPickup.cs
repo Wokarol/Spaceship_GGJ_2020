@@ -21,7 +21,7 @@ public class DummyPickup : MonoBehaviour, IItemPickup
         public DummyItem(string name) => Name = name;
 
 
-        public void Use(IShipModule currentModule)
+        public void Use(IShipModule currentModule, Vector3 _)
         {
             if(currentModule != null)
             {
@@ -36,6 +36,16 @@ public class DummyPickup : MonoBehaviour, IItemPickup
         public void Dropped(Vector3 position)
         {
             Debug.Log($"Dropped {Name}");
+        }
+
+        public void Equipped(GameObject holder)
+        {
+
+        }
+
+        public void Dequipped()
+        {
+            
         }
     }
 }

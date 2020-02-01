@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Wrench
   m_EditorClassIdentifier: 
   itemName: Wrench
+  color: {r: 1, g: 0.2509804, b: 0.68235296, a: 1}

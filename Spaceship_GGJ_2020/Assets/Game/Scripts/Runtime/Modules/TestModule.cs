@@ -8,6 +8,6 @@ public class TestModule : MonoBehaviour, IShipModule
 
     public void UseItem(IItem simpleItem)
     {
-        Debug.Log($"[Module] Used {simpleItem} on me ({Name})");
+        Debug.Log($"[Module] Used {simpleItem?.Name} on me ({Name})");
     }
 }

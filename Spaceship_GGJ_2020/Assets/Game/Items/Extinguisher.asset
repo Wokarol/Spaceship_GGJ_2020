@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Extinguisher
   m_EditorClassIdentifier: 
   itemName: Extinguisher
+  color: {r: 1, g: 0.29803923, b: 0.34901962, a: 1}

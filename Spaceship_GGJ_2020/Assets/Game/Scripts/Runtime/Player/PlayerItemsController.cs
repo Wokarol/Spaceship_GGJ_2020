@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerItemsController : MonoBehaviour
 {
+    [SerializeField] private GameObject holder = null;
+
     private PlayerModuleInteractionController moduleController;
 
     private IItem currentItem;
@@ -20,15 +22,21 @@ public class PlayerItemsController : MonoBehaviour
     {
         if (currentPickup != null)
         {
+            IItem item = currentPickup.GetItem();
+            if (item == null)
+                return;
+
             if(secondaryItem == null)
             {
                 OnSwap();
             }
             if(currentItem != null)
             {
+                currentItem.Dequipped();
                 currentItem.Dropped(transform.position);
             }
-            currentItem = currentPickup.GetItem();
+            currentItem = item;
+            currentItem.Equipped(holder);
         }
         else
         {
@@ -41,13 +49,16 @@ public class PlayerItemsController : MonoBehaviour
         var temp = currentItem;
         currentItem = secondaryItem;
         secondaryItem = temp;
+
+        secondaryItem?.Dequipped();
+        currentItem?.Equipped(holder);
     }
 
     public void OnUseItem()
     {
         if(currentItem != null)
         {
-            currentItem.Use(moduleController.CurrentModule);
+            currentItem.Use(moduleController.CurrentModule, transform.position);
         }
         else
         {

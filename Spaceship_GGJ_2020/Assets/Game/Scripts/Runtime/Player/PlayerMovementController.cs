@@ -31,6 +31,8 @@ class PlayerMovementController : MonoBehaviour
     private Vector2 movementInput;
     private bool usingGamepad;
 
+    private bool facingRight;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -52,12 +54,12 @@ class PlayerMovementController : MonoBehaviour
                     if (xInput != 0)
                     {
                         xInput = Mathf.Sign(xInput);
-                    } 
+                    }
                 }
                 velocity.x = xInput * speed;
                 velocity.y = 0;
                 if (IsTouchingLadder &&
-                    (movementInput.y > 0.5f || (movementInput.y < -0.5f && !IsGrounded()))) 
+                    (movementInput.y > 0.5f || (movementInput.y < -0.5f && !IsGrounded())))
                 {
                     SwitchMovementState(Movement.OnLadder);
                 }
@@ -95,6 +97,18 @@ class PlayerMovementController : MonoBehaviour
                 break;
         }
 
+        if (velocity.x != 0)
+        {
+            facingRight = velocity.x > 0;
+        }
+
+        Vector3 scale = transform.localScale;
+        if (scale.x > 0 != facingRight)
+        {
+            scale.x *= -1;
+        }
+        transform.localScale = scale;
+
         body.velocity = velocity;
     }
 
@@ -102,7 +116,7 @@ class PlayerMovementController : MonoBehaviour
     private void SnapToGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask);
-        if(hit.collider)
+        if (hit.collider)
             transform.position = hit.point;
     }
 
@@ -113,7 +127,7 @@ class PlayerMovementController : MonoBehaviour
         if (newState == movementState)
             return;
 
-        if(newState == Movement.OnGround)
+        if (newState == Movement.OnGround)
         {
             SnapToGround();
         }

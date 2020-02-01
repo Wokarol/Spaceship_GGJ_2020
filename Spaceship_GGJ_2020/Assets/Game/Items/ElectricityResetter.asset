@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ElectricityResetter
   m_EditorClassIdentifier: 
   itemName: ElectricityResetter
+  color: {r: 0.29803923, g: 0.7058824, b: 1, a: 1}
