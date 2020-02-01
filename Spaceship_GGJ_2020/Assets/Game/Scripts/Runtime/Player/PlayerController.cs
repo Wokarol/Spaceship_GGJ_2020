@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tag] private string ladderTag = "";
     [SerializeField] private float groundCheckDistance = 0.51f;
     [SerializeField] private LayerMask groundMask = 0;
+    [SerializeField] private float airSpeedModifier = 0.5f;
 
     private Rigidbody2D body;
     private GameplayInput input;
@@ -50,9 +51,14 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case Movement.InAir:
+                velocity.x = movementInput.x * speed * airSpeedModifier;
                 if (IsGrounded())
                 {
                     SwitchMovementState(Movement.OnGround);
+                }
+                if (isTouchingLadder && movementInput.y > 0.5f)
+                {
+                    SwitchMovementState(Movement.OnLadder);
                 }
                 break;
             case Movement.OnLadder:
