@@ -1,12 +1,13 @@
 ﻿using NaughtyAttributes;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 class PlayerMovementController : MonoBehaviour
 {
     enum Movement
     {
-        OnGround, InAir, OnLadder
+        Invalid, OnGround, InAir, OnLadder
     }
 
     [SerializeField] private float speed = 10;
@@ -14,38 +15,45 @@ class PlayerMovementController : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.51f;
     [SerializeField] private LayerMask groundMask = 0;
     [SerializeField] private float airSpeedModifier = 0.5f;
-
+    [Space]
+    [SerializeField] private string gamepadScheme;
     private Rigidbody2D body;
 
     private int ladderCount = 0;
     private bool IsTouchingLadder => ladderCount > 0;
-    private Movement movementState;
+    private Movement movementState = Movement.Invalid;
 
     private float lastGravityScale = -1;
 
-    public Func<Vector2> GetMovementInput { get; set; }
+    private Vector2 movementInput;
+    private bool usingGamepad;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         lastGravityScale = body.gravityScale;
+
+        SwitchMovementState(Movement.InAir);
     }
 
     private void Update()
     {
         Vector2 velocity = body.velocity;
-        Vector2 movementInput = GetMovementInput();
 
         switch (movementState)
         {
             case Movement.OnGround:
                 float xInput = movementInput.x;
-                if (xInput != 0)
+                if (!usingGamepad)
                 {
-                    xInput = Mathf.Sign(xInput); 
+                    if (xInput != 0)
+                    {
+                        xInput = Mathf.Sign(xInput);
+                    } 
                 }
                 velocity.x = xInput * speed;
-                if (IsTouchingLadder)
+                velocity.y = 0;
+                if (IsTouchingLadder && Mathf.Abs(movementInput.y) > 0.75f)
                 {
                     SwitchMovementState(Movement.OnLadder);
                 }
@@ -63,6 +71,14 @@ class PlayerMovementController : MonoBehaviour
                 break;
             case Movement.OnLadder:
                 velocity = movementInput * speed;
+                if (usingGamepad)
+                {
+                    if (Mathf.Abs(movementInput.y) > 0.5)
+                    {
+                        movementInput.x *= 0.2f;
+                    }
+                }
+
                 if (!IsTouchingLadder)
                 {
                     SwitchMovementState(Movement.InAir);
@@ -75,19 +91,27 @@ class PlayerMovementController : MonoBehaviour
     }
 
     private bool IsGrounded() => Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask).collider;
+    private void SnapToGround() => transform.position = (Vector3)(Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask).point);
 
     private void SwitchMovementState(Movement newState)
     {
+        //Debug.Log($"Changing state from: {movementState} to {newState}");
+
         if (newState == movementState)
             return;
 
-        if (newState == Movement.OnLadder)
+        if(newState == Movement.OnGround)
+        {
+            SnapToGround();
+        }
+
+        if ((movementState == Movement.InAir || movementState == Movement.Invalid) && (newState == Movement.OnLadder || newState == Movement.OnGround))
         {
             lastGravityScale = body.gravityScale;
             body.gravityScale = 0;
         }
 
-        if (newState != Movement.OnLadder)
+        if (newState == Movement.InAir)
         {
             body.gravityScale = lastGravityScale;
         }
@@ -110,6 +134,25 @@ class PlayerMovementController : MonoBehaviour
         {
             ladderCount -= 1;
             return;
+        }
+    }
+
+    // Input
+    public void OnControlsChanged(PlayerInput input)
+    {
+        usingGamepad = input.currentControlScheme == gamepadScheme;
+    }
+
+    public void OnMovement(InputValue v)
+    {
+        Vector2 input = v.Get<Vector2>();
+        if (input.sqrMagnitude < 0.4f * 0.4f)
+        {
+            movementInput = Vector2.zero;
+        }
+        else
+        {
+            movementInput = input;
         }
     }
 }

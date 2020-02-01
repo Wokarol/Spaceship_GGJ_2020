@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 914328553830054982}
   - component: {fileID: 914328553830054985}
   - component: {fileID: 914328553830054981}
-  - component: {fileID: 914328553830054983}
   - component: {fileID: 5276776864436413519}
   - component: {fileID: 7131975331289071107}
   - component: {fileID: 4504379778965683448}
+  - component: {fileID: 1580662195}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -74,18 +74,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.75}
   m_Size: {x: 1, y: 1.5}
   m_Direction: 0
---- !u!114 &914328553830054983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914328553830054980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b69d218ad0da6a648b64d4664c977cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5276776864436413519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,13 +86,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0aa1f21c9c12945b2a09a2595045d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
   ladderTag: Ladder
-  groundCheckDistance: 0.55
+  groundCheckDistance: 0.01
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  airSpeedModifier: 0.5
+  airSpeedModifier: 1
+  gamepadScheme: Gamepad
 --- !u!114 &7131975331289071107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +118,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152d6e0c2ddb2914bb0d88511fbaaa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1580662195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914328553830054980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3c728386b49d4174caa152b032edb109,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71f3a8c7-d4ca-46ff-8b77-b663f136b770
+    m_ActionName: General/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 980b7cf0-7a3b-40a8-8f49-167e3cb87d9e
+    m_ActionName: General/Pickup[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0edc6a15-fb8a-4839-9035-2313d6a3e1ef
+    m_ActionName: General/Swap[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8b74ebc3-d42d-4632-af42-7e22cd962506
+    m_ActionName: General/UseItem[/Keyboard/e]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: General
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &914328554784073385
 GameObject:
   m_ObjectHideFlags: 0

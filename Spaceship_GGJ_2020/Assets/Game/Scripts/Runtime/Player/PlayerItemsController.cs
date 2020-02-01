@@ -6,18 +6,18 @@ public class PlayerItemsController : MonoBehaviour
 {
     public PlayerModuleInteractionController ModuleController { get; set; }
 
-    public void UseItem()
+    public void OnPickup()
     {
-
+        Debug.Log("Pickup!");
     }
 
-    public void PickupItem()
+    public void OnSwap()
     {
-
+        Debug.Log("Swap!");
     }
 
-    public void SwapItems()
+    public void OnUseItem()
     {
-
+        Debug.Log("Use!");
     }
 }
