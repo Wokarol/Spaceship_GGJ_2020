@@ -105,6 +105,9 @@ public static class BetterHierarchy
 
         foreach (var component in go.GetComponents<Component>())
         {
+            if (component == null)
+                continue;
+
             Type type = component.GetType();
 
             if (blacklist.Contains(type))
