@@ -39,7 +39,12 @@ class PlayerMovementController : MonoBehaviour
         switch (movementState)
         {
             case Movement.OnGround:
-                velocity.x = movementInput.x * speed;
+                float xInput = movementInput.x;
+                if (xInput != 0)
+                {
+                    xInput = Mathf.Sign(xInput); 
+                }
+                velocity.x = xInput * speed;
                 if (IsTouchingLadder)
                 {
                     SwitchMovementState(Movement.OnLadder);
