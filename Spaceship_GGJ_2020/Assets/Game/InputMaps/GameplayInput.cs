@@ -27,9 +27,25 @@ public class @GameplayInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""Pickup"",
                     ""type"": ""Button"",
-                    ""id"": ""fe8aa309-94bc-4b5d-9805-9e29eb8d9bfc"",
+                    ""id"": ""980b7cf0-7a3b-40a8-8f49-167e3cb87d9e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Swap"",
+                    ""type"": ""Button"",
+                    ""id"": ""0edc6a15-fb8a-4839-9035-2313d6a3e1ef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b74ebc3-d42d-4632-af42-7e22cd962506"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -104,23 +120,67 @@ public class @GameplayInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""07601da0-6a3f-48d9-8113-251369f9adfa"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""f36d5027-e5fe-4bbe-a6f7-5b0523cde126"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Pickup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3ce5d4fb-37f2-47e0-b85c-b011a53d7f37"",
+                    ""id"": ""46289a09-be35-4d7c-8f09-4343b1476272"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35ea9239-10ce-4508-b099-bc11f507c2eb"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa63e17e-8e10-4758-a29a-767e6d0c4f4e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c20d3f21-8fee-4e33-a2cb-797815e3a642"",
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31b3d626-b13e-4bc4-9a43-88b203954f6f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -132,7 +192,9 @@ public class @GameplayInput : IInputActionCollection, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Movement = m_General.FindAction("Movement", throwIfNotFound: true);
-        m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
+        m_General_Pickup = m_General.FindAction("Pickup", throwIfNotFound: true);
+        m_General_Swap = m_General.FindAction("Swap", throwIfNotFound: true);
+        m_General_UseItem = m_General.FindAction("UseItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,13 +245,17 @@ public class @GameplayInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
     private readonly InputAction m_General_Movement;
-    private readonly InputAction m_General_Interact;
+    private readonly InputAction m_General_Pickup;
+    private readonly InputAction m_General_Swap;
+    private readonly InputAction m_General_UseItem;
     public struct GeneralActions
     {
         private @GameplayInput m_Wrapper;
         public GeneralActions(@GameplayInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_General_Movement;
-        public InputAction @Interact => m_Wrapper.m_General_Interact;
+        public InputAction @Pickup => m_Wrapper.m_General_Pickup;
+        public InputAction @Swap => m_Wrapper.m_General_Swap;
+        public InputAction @UseItem => m_Wrapper.m_General_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -202,9 +268,15 @@ public class @GameplayInput : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMovement;
-                @Interact.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnInteract;
+                @Pickup.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnPickup;
+                @Swap.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwap;
+                @Swap.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwap;
+                @Swap.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwap;
+                @UseItem.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUseItem;
+                @UseItem.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUseItem;
+                @UseItem.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUseItem;
             }
             m_Wrapper.m_GeneralActionsCallbackInterface = instance;
             if (instance != null)
@@ -212,9 +284,15 @@ public class @GameplayInput : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
+                @Swap.started += instance.OnSwap;
+                @Swap.performed += instance.OnSwap;
+                @Swap.canceled += instance.OnSwap;
+                @UseItem.started += instance.OnUseItem;
+                @UseItem.performed += instance.OnUseItem;
+                @UseItem.canceled += instance.OnUseItem;
             }
         }
     }
@@ -222,6 +300,8 @@ public class @GameplayInput : IInputActionCollection, IDisposable
     public interface IGeneralActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
+        void OnSwap(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
 }
