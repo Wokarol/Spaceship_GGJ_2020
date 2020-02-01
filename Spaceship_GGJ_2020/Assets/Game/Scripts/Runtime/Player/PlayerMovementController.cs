@@ -17,7 +17,7 @@ class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundMask = 0;
     [SerializeField] private float airSpeedModifier = 0.5f;
     [Space]
-    [SerializeField] private string gamepadScheme;
+    [SerializeField] private string gamepadScheme = null;
     private Rigidbody2D body;
 
     private int ladderCount = 0;

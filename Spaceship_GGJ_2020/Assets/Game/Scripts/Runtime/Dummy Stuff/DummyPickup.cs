@@ -16,6 +16,8 @@ public class DummyPickup : MonoBehaviour, IItemPickup
     {
         public string Name { get; }
 
+        public IItemID ID => null;
+
         public DummyItem(string name) => Name = name;
 
 
