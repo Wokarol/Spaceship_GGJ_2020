@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 class PlayerMovementController : MonoBehaviour
 {
+    [System.Serializable]
     enum Movement
     {
         Invalid, OnGround, InAir, OnLadder
@@ -21,6 +22,8 @@ class PlayerMovementController : MonoBehaviour
 
     private int ladderCount = 0;
     private bool IsTouchingLadder => ladderCount > 0;
+    [Header("Debug")]
+    [SerializeField]
     private Movement movementState = Movement.Invalid;
 
     private float lastGravityScale = -1;
@@ -53,7 +56,8 @@ class PlayerMovementController : MonoBehaviour
                 }
                 velocity.x = xInput * speed;
                 velocity.y = 0;
-                if (IsTouchingLadder && Mathf.Abs(movementInput.y) > 0.75f)
+                if (IsTouchingLadder &&
+                    (movementInput.y > 0.5f || (movementInput.y < -0.5f && !IsGrounded()))) 
                 {
                     SwitchMovementState(Movement.OnLadder);
                 }
@@ -83,6 +87,10 @@ class PlayerMovementController : MonoBehaviour
                 {
                     SwitchMovementState(Movement.InAir);
                 }
+                if (IsGrounded())
+                {
+                    SwitchMovementState(Movement.OnGround);
+                }
 
                 break;
         }
@@ -91,7 +99,12 @@ class PlayerMovementController : MonoBehaviour
     }
 
     private bool IsGrounded() => Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask).collider;
-    private void SnapToGround() => transform.position = (Vector3)(Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask).point);
+    private void SnapToGround()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundMask);
+        if(hit.collider)
+            transform.position = hit.point;
+    }
 
     private void SwitchMovementState(Movement newState)
     {
@@ -154,5 +167,11 @@ class PlayerMovementController : MonoBehaviour
         {
             movementInput = input;
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(20, 20, 100, 20), $"State: {movementState}");
+        GUI.Label(new Rect(20, 35, 100, 20), $"Gravity: {body.gravityScale}");
     }
 }
