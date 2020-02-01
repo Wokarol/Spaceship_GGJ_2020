@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class PlayerModuleInteractionController : MonoBehaviour
 {
-    private IShipModule currentModule;
-
-    public IShipModule CurrentModule => currentModule;
+    public IShipModule CurrentModule { get; private set; }
 
     public void UseItemOnModule()
     {
@@ -16,9 +14,9 @@ public class PlayerModuleInteractionController : MonoBehaviour
     {
         if (collision.TryGetComponent(out IShipModule module))
         {
-            if (currentModule != null)
+            if (CurrentModule != null)
                 Debug.LogWarning("Overridding active module!");
-            currentModule = module;
+            CurrentModule = module;
         }
     }
 
@@ -26,13 +24,19 @@ public class PlayerModuleInteractionController : MonoBehaviour
     {
         if (collision.TryGetComponent(out IShipModule module))
         {
-            if (module != currentModule)
+            if (module != CurrentModule)
             {
                 Debug.LogWarning("Trying to remove module that is not current!");
                 return;
             }
 
-            currentModule = null;
+            CurrentModule = null;
         }
+    }
+
+    private void OnGUI()
+    {
+        float offset = 40 + 60;
+        GUI.Label(new Rect(20, 20 + offset, 400, 20), $"Module: {CurrentModule?.Name}");
     }
 }

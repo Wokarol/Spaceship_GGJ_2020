@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TestModule : MonoBehaviour, IShipModule
 {
-
+    public string Name => name;
 }
