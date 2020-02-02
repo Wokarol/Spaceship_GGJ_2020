@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d9e6751465a6444b3d3d8bef938d71, type: 3}
   m_Name: Default Module Config
   m_EditorClassIdentifier: 
-  StabilityRegenerationSpeed: 0.2
+  StabilityRegenerationSpeed: 0.3
   FireStabilitySpeed: 0.05
   ExtinguisherID: {fileID: 11400000, guid: 3fb60e694a0eb3d4b8c3264703695940, type: 2}
   ElectricResetterID: {fileID: 11400000, guid: ca3b2673c7eb0584980d19d11e057ff1, type: 2}
   WrenchID: {fileID: 11400000, guid: 87fc0a7107a9a0740a3a39825f2b1413, type: 2}
+  FireChance: 3
+  EMPChance: 3
+  BreakHitChance: 1

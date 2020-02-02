@@ -14,6 +14,7 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     [SerializeField] private ShipModuleSettings config = null;
     [Space]
     [SerializeField] private GameObject fireEffect = null;
+    [SerializeField] protected GameDirector director;
 
     [Header("Debug")]
     [SerializeField, Range(0, 1)] private float stability = 1;
@@ -22,6 +23,7 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     public string Name => name;
     public bool Broken { get; private set; }
     public bool IsWorking => !Broken && currentEffect != Effect.ElectricShok;
+    public Effect CurrentEffect => currentEffect;
 
     private void Awake()
     {
@@ -71,5 +73,32 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     public virtual void Interact()
     {
 
+    }
+
+    public void Attack(float damage)
+    {
+        GetRandomEffect();
+        director.Player.Damage(damage);
+    }
+
+    public void GetRandomEffect()
+    {
+        int sum = config.BreakHitChance + config.EMPChance + config.FireChance;
+        int v = Random.Range(1, sum + 1);
+
+        if(v <= config.BreakHitChance)
+        {
+            Broken = true;
+        }
+
+        if (v <= config.BreakHitChance + config.EMPChance)
+        {
+            currentEffect = Effect.ElectricShok;
+        }
+
+        if (v <= config.BreakHitChance + config.EMPChance + config.FireChance)
+        {
+            currentEffect = Effect.Fire;
+        }
     }
 }

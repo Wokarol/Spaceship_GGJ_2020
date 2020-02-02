@@ -6,7 +6,6 @@ using DG.Tweening;
 
 public class Torpedoes : ShipModule
 {
-    [SerializeField] private GameDirector director;
     [SerializeField] private TorpedoLoader loader;
     [SerializeField] private float damagePerTorpedo = 0.1f;
     [SerializeField] private float speed;

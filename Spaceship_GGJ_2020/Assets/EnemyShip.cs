@@ -6,6 +6,10 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private float timeBetweenShots = 10f;
     [SerializeField] private float baseDamage = 0.05f;
     [Space]
+    [SerializeField] private ShipModule[] modules;
+    [SerializeField] private Transform[] randomHitpoints;
+    [SerializeField, Range(0, 1)] private float moduleHitChance = 0.2f;
+    [Space]
     [SerializeField, Range(0, 1)] private float HP = 1;
 
 
@@ -48,11 +52,28 @@ public class EnemyShip : MonoBehaviour
         float random = Random.value;
         if (random > evade)
         {
-            PlayersShip.Damage(damage);
+            List<ShipModule> viableModules = new List<ShipModule>();
+            foreach (var m in modules)
+            {
+                if(!m.Broken && m.CurrentEffect == ShipModule.Effect.None)
+                {
+                    viableModules.Add(m);
+                }
+            }
+
+            if(Random.value < moduleHitChance && viableModules.Count > 0)
+            {
+                viableModules.Shuffle();
+                viableModules[0].Attack(damage);
+            }
+            else
+            {
+                // Attacking of random point
+            }
         }
         else
         {
-            Debug.Log($"[FIGHT]  Player Evaded ({damage})");
+            // Attacking nothing
         }
     }
 }

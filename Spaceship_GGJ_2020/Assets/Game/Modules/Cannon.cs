@@ -7,8 +7,6 @@ public class Cannon : ShipModule
     [SerializeField] private float timeBetweenShots = 5;
     [SerializeField] private float damage = 0.05f;
     [Space]
-    [SerializeField] private GameDirector director = null;
-    [Space]
     [SerializeField] private Animator animator;
     float timer;
 
