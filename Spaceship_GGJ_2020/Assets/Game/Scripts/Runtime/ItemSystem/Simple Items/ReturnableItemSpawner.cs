@@ -9,7 +9,7 @@ public class ReturnableItemSpawner : MonoBehaviour, IItemPickup
 
 
     [SerializeField] private ItemTemplate itemTemplate = null;
-    [SerializeField] private Animator animator;
+    private Animator animator;
 
     private bool itemInSlot = true;
 

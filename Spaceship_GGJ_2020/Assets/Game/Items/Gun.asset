@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9b9d61bf50bba4eb416fc580b704c0, type: 3}
-  m_Name: Wrench
+  m_Script: {fileID: 11500000, guid: 19c238d20fce3cf488b975c7ddeb0614, type: 3}
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  itemName: Wrench
-  sprite: {fileID: 21300000, guid: f8838c7d014cc9f48b12e00fffcb4033, type: 3}
-  color: {r: 1, g: 0.2509804, b: 0.68235296, a: 1}
+  itemName: Gun
+  prefab: {fileID: 7888851204930149789, guid: be02508582869ec4c88587a51c5fdaa5, type: 3}

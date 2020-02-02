@@ -7,6 +7,7 @@ using UnityEngine;
 public class SimpleItemTemplate : ItemTemplate, IItemID
 {
     [SerializeField] private string itemName = "";
+    [SerializeField] private Sprite sprite = null;
     [SerializeField] private Color color = Color.white;
 
     [NaughtyAttributes.Button("Set Default Name")]
@@ -18,26 +19,34 @@ public class SimpleItemTemplate : ItemTemplate, IItemID
         }
     }
 
-    public override IItem GetItem(Action<Vector3> callback) => new SimpleItem(itemName, callback, this, color);
+    public override IItem GetItem(Action<Vector3> callback)
+    {
+        return new SimpleItem(itemName, callback, this, color, sprite);
+    }
+
+
+    // ITEM CLASS
 
     public class SimpleItem : IItem
     {
         // Cache
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer spriteRenderer = null;
         // =====
 
         private Action<Vector3> droppedCallback;
         private Color color;
+        private Sprite sprite;
 
         public string Name { get; }
         public IItemID ID { get; }
 
-        public SimpleItem(string name, Action<Vector3> droppedCallback, IItemID id, Color color)
+        public SimpleItem(string name, Action<Vector3> droppedCallback, IItemID id, Color color, Sprite sprite)
         {
             this.Name = name;
             this.droppedCallback = droppedCallback;
             this.ID = id;
             this.color = color;
+            this.sprite = sprite;
         }
 
         public void Dropped(Vector3 position) => droppedCallback?.Invoke(position);
@@ -46,9 +55,10 @@ public class SimpleItemTemplate : ItemTemplate, IItemID
         public void Equipped(GameObject holder)
         {
             Debug.Log("Equipped " + Name);
-            if(holder.TryGetComponent(out SpriteRenderer sprite))
+            if(holder.TryGetComponent(out spriteRenderer))
             {
-                sprite.color = color;
+                spriteRenderer.color = color;
+                spriteRenderer.sprite = sprite;
             }
         }
 
@@ -58,6 +68,7 @@ public class SimpleItemTemplate : ItemTemplate, IItemID
             if (spriteRenderer)
             {
                 spriteRenderer.color = Color.clear;
+                spriteRenderer.sprite = null;
             }
         }
     }

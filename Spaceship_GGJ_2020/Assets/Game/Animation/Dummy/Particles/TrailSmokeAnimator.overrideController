@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TrailSmokeAnimator
+  m_Controller: {fileID: 9100000, guid: f3937e026c13f9d43a46114614628386, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 2a937d9b1161edd44b5dde6283bf2a54, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e67cd99f2ccc00c46847465fb3992bdd, type: 2}

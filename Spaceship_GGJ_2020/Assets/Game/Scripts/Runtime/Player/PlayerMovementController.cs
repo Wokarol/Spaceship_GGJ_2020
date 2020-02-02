@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 class PlayerMovementController : MonoBehaviour
 {
     [System.Serializable]
-    enum Movement
+    public enum Movement
     {
         Invalid, OnGround, InAir, OnLadder
     }
@@ -32,6 +32,10 @@ class PlayerMovementController : MonoBehaviour
     private bool usingGamepad;
 
     private bool facingRight;
+    private Vector2 velocity;
+
+    public Movement MovementState => movementState;
+    public Vector2 Velocity => velocity;
 
     private void Awake()
     {
@@ -43,7 +47,7 @@ class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 velocity = body.velocity;
+        velocity = body.velocity;
 
         switch (movementState)
         {
