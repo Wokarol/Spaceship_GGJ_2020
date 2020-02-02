@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4504379778965683448}
   - component: {fileID: 4574166942387169352}
   - component: {fileID: 1580662195}
+  - component: {fileID: 8159800368993425466}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -182,6 +183,17 @@ MonoBehaviour:
   m_DefaultActionMap: General
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!210 &8159800368993425466
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914328553830054980}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2902601740664089473
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +263,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: f8838c7d014cc9f48b12e00fffcb4033, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0

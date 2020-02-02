@@ -62,7 +62,7 @@ public class PlayerItemsController : MonoBehaviour
         }
         else
         {
-            Debug.Log("No Item to use");
+            moduleController.CurrentModule?.Interact();
         }
     }
 

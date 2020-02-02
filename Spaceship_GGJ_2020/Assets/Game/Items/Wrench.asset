@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wrench
   m_EditorClassIdentifier: 
   itemName: Wrench
-  sprite: {fileID: 21300000, guid: f8838c7d014cc9f48b12e00fffcb4033, type: 3}
-  color: {r: 1, g: 0.2509804, b: 0.68235296, a: 1}
+  sprite: {fileID: 21300000, guid: e6cbb2f4680a4c64e871a39a8bb4345c, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}

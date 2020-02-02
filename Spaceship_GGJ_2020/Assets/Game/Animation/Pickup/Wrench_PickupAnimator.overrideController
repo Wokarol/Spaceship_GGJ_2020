@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Wrench_PickupAnimator
+  m_Controller: {fileID: 9100000, guid: 7010ae78a469dc84385e823aa9e5917a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: cc7525ed52fd3e5438c50e78a5c77f72, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 17707988eb5c9e244a0d00142c60973d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 21a794b9691129d42b898431266e4b45, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0259d1c79cd52d74e84435ec716136c1, type: 2}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ElectricityResetter
   m_EditorClassIdentifier: 
   itemName: ElectricityResetter
-  sprite: {fileID: 21300000, guid: f8838c7d014cc9f48b12e00fffcb4033, type: 3}
-  color: {r: 0.29803923, g: 0.7058824, b: 1, a: 1}
+  sprite: {fileID: 21300000, guid: 131341b0edf5a0b43b5f53246927cad4, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
