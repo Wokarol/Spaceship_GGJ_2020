@@ -12,6 +12,8 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     }
 
     [SerializeField] private ShipModuleSettings config = null;
+    [Space]
+    [SerializeField] private GameObject fireEffect = null;
 
     [Header("Debug")]
     [SerializeField, Range(0, 1)] private float stability = 1;
@@ -43,6 +45,8 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
         {
             Broken = true;
         }
+
+        fireEffect.SetActive(currentEffect == Effect.Fire);
     }
 
     public void UseItem(IItem item)
