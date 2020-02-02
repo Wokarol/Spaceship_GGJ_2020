@@ -25,7 +25,7 @@ public class PLOT : ShipModule
         base.Update();
         if (IsWorking)
         {
-            animator.speed = 0;
+            animator.speed = 1;
             timer += Time.deltaTime;
             if (timer > casualShootingInterval)
             {

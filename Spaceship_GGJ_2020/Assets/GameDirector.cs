@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayersShip))]
@@ -57,6 +58,11 @@ public class GameDirector : MonoBehaviour
             win.SetActive(true);
             Wokarol.Scheduler.DelayCall(() => SceneManager.LoadScene(menuScene), 2f);
             ended = true;
+        }
+
+        if (Keyboard.current.pKey.isPressed)
+        {
+            SceneManager.LoadScene(menuScene);
         }
     }
 }
