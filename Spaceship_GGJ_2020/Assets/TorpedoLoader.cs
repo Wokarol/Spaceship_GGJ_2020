@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 
 public class TorpedoLoader : MonoBehaviour
 {
     [SerializeField] private Transform theTorpedo = null;
     [SerializeField] private Transform theStart = null;
     [SerializeField] private Transform theLaunch = null;
-    [Space]                            
+    [Space]
     [SerializeField] private float slidingTime = 5f;
 
     private Animator animator;
     private bool isLoading;
+    private Tween tween;
 
     public bool TheTorpedoInBay { get; private set; } = true;
     public Transform TheTorpedo => theTorpedo;
@@ -34,16 +37,23 @@ public class TorpedoLoader : MonoBehaviour
 
     public void LoadedTorpedo()
     {
-        
+
         isLoading = false;
         TheTorpedo.gameObject.SetActive(true);
         TheTorpedo.position = theStart.position;
-        TheTorpedo.DOMove(theLaunch.position, slidingTime).SetEase(Ease.Linear)
+        tween = TheTorpedo.DOMove(theLaunch.position, slidingTime).SetEase(Ease.Linear)
             .OnComplete(() => { TheTorpedoInBay = true; });
     }
 
     public void TorpedoTaken()
     {
         TheTorpedoInBay = false;
+    }
+
+    public void SetTimeScale(float scale)
+    {
+        animator.speed = scale;
+        if (tween != null)
+            tween.timeScale = scale;
     }
 }

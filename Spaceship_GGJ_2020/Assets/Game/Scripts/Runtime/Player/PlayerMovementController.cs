@@ -187,9 +187,9 @@ class PlayerMovementController : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(20, 20, 100, 20), $"State: {movementState}");
-        GUI.Label(new Rect(20, 35, 100, 20), $"Gravity: {body.gravityScale}");
-    }
+    //private void OnGUI()
+    //{
+    //    GUI.Label(new Rect(20, 20, 100, 20), $"State: {movementState}");
+    //    GUI.Label(new Rect(20, 35, 100, 20), $"Gravity: {body.gravityScale}");
+    //}
 }

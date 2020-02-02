@@ -10,8 +10,21 @@ public class Torpedoes : ShipModule
     [SerializeField] private float damagePerTorpedo = 0.1f;
     [SerializeField] private float speed;
 
+    private Tween tween;
+
+    protected override void Update()
+    {
+        base.Update();
+        int scale = IsWorking ? 1 : 0;
+
+        loader.SetTimeScale(scale);
+    }
+
     public override void Interact()
     {
+        if (!IsWorking)
+            return;
+
         Debug.Log("I've been interacted with");
 
         if (loader.TheTorpedoInBay)

@@ -90,11 +90,11 @@ public class PlayerItemsController : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        float offset = 40;
-        GUI.Label(new Rect(20, 20 + offset, 400, 20), $"Item [1]: {currentItem?.Name}");
-        GUI.Label(new Rect(20, 35 + offset, 400, 20), $"Item [2]: {secondaryItem?.Name}");
-        GUI.Label(new Rect(20, 50 + offset, 400, 20), $"Pickup: {currentPickup?.Name}");
-    }
+    //private void OnGUI()
+    //{
+    //    float offset = 40;
+    //    GUI.Label(new Rect(20, 20 + offset, 400, 20), $"Item [1]: {currentItem?.Name}");
+    //    GUI.Label(new Rect(20, 35 + offset, 400, 20), $"Item [2]: {secondaryItem?.Name}");
+    //    GUI.Label(new Rect(20, 50 + offset, 400, 20), $"Pickup: {currentPickup?.Name}");
+    //}
 }

@@ -44,7 +44,13 @@ public class Gun : GameObjectItem
 
         DoTrail(hit);
 
-        Debug.Log("Pew! Pew!");
+        if (hit.collider == null)
+            return;
+
+        if(hit.collider.TryGetComponent(out EnemyAI enemyAI))
+        {
+            enemyAI.Die();
+        }
     }
 
     private void DoTrail(RaycastHit2D hit)

@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class ModuleNode : MovementNode
 {
-    [SerializeField] private ShipModule module;
+    public static List<ModuleNode> ModuleNodes = new List<ModuleNode>();
+    public ShipModule Module;
 
     private void OnDrawGizmosSelected()
     {
-        if (module == null)
+        if (Module == null)
             return;
-        Gizmos.DrawLine(transform.position, module.transform.position);
+        Gizmos.DrawLine(transform.position, Module.transform.position);
+    }
+
+    private void OnEnable()
+    {
+        ModuleNodes.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        ModuleNodes.Remove(this);
     }
 }

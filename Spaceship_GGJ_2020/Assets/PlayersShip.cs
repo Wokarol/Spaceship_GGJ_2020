@@ -4,6 +4,8 @@ public class PlayersShip : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float HP = 1;
 
+    public float Health => HP;
+
     public EnemyShip EnemyShip { get; set; } = null;
 
     private void Awake()

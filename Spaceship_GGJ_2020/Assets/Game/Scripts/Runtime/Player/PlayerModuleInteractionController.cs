@@ -34,9 +34,9 @@ public class PlayerModuleInteractionController : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        float offset = 40 + 60;
-        GUI.Label(new Rect(20, 20 + offset, 400, 20), $"Module: {CurrentModule?.Name}");
-    }
+    //private void OnGUI()
+    //{
+    //    float offset = 40 + 60;
+    //    GUI.Label(new Rect(20, 20 + offset, 400, 20), $"Module: {CurrentModule?.Name}");
+    //}
 }

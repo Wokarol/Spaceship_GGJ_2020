@@ -162,10 +162,10 @@ MonoBehaviour:
     type: 3}
   hitEffect: {fileID: 7976695864761576397, guid: 7aac7e19d6642644db8d42312fa2c46d,
     type: 3}
-  hitdelay: 0.1
+  hitDelay: 0.04
   hitMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   trailPrefab: {fileID: 1947865843855004640, guid: a002fb4c3db2d8e4cbf462de54bd86b3,
     type: 3}
 --- !u!95 &671073097

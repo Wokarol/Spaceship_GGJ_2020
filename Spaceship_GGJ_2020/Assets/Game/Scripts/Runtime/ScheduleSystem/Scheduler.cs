@@ -18,7 +18,7 @@ namespace Wokarol
             }
 
             // Enqueues call to priority queue
-            delayedCallsQueue.Enqueue(new DelayedCall(action, Time.time + delay));
+            delayedCallsQueue.Enqueue(new DelayedCall(action, Time.unscaledTime + delay));
         }
 
         // Intenal
@@ -51,7 +51,7 @@ namespace Wokarol
                 var call = delayedCallsQueue.Peek();
 
                 // Check if top call is waiting
-                if (call.Time < Time.time) {
+                if (call.Time < Time.unscaledTime) {
                     // Calls it if needed
                     call.Action.Invoke();
                     delayedCallsQueue.Dequeue();

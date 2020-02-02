@@ -10,7 +10,7 @@ public class ShipModuleSettings : ScriptableObject
     public ItemTemplate WrenchID;
 
     [Header("Chances")]
-    [Range(1, 10)] public int FireChance = 3;
-    [Range(1, 10)] public int EMPChance = 3;
-    [Range(1, 10)] public int BreakHitChance = 1;
+    [Range(0, 10)] public int FireChance = 3;
+    [Range(0, 10)] public int EMPChance = 3;
+    [Range(0, 10)] public int BreakHitChance = 1;
 }

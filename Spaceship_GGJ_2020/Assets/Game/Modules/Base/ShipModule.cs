@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     [SerializeField] private ShipModuleSettings config = null;
     [Space]
     [SerializeField] private GameObject fireEffect = null;
+
+    [SerializeField] private GameObject sparkEffect = null;
+    [SerializeField] private DestructionController destruction = null;
     [SerializeField] protected GameDirector director;
 
     [Header("Debug")]
@@ -49,6 +53,8 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
         }
 
         fireEffect.SetActive(currentEffect == Effect.Fire);
+        sparkEffect.SetActive(currentEffect == Effect.ElectricShok);
+        destruction.IsBroken = Broken;
     }
 
     public void UseItem(IItem item)
@@ -84,21 +90,29 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
     public void GetRandomEffect()
     {
         int sum = config.BreakHitChance + config.EMPChance + config.FireChance;
-        int v = Random.Range(1, sum + 1);
+        int v = UnityEngine.Random.Range(1, sum + 1);
 
         if(v <= config.BreakHitChance)
         {
             Broken = true;
+            return;
         }
 
         if (v <= config.BreakHitChance + config.EMPChance)
         {
             currentEffect = Effect.ElectricShok;
+            return;
         }
 
         if (v <= config.BreakHitChance + config.EMPChance + config.FireChance)
         {
             currentEffect = Effect.Fire;
+            return;
         }
+    }
+
+    public void Damage(float damage)
+    {
+        stability = Mathf.MoveTowards(stability, 0, damage);
     }
 }

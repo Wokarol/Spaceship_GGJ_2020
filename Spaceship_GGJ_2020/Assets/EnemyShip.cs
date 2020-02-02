@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
@@ -10,12 +12,15 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private Transform[] randomHitpoints;
     [SerializeField, Range(0, 1)] private float moduleHitChance = 0.2f;
     [Space]
+    [SerializeField] private Transform pewEffect;
+    [Space]
     [SerializeField, Range(0, 1)] private float HP = 1;
 
 
     public PlayersShip PlayersShip { get; set; } = null;
-    public static List<IDamageModifier> DamageModifiers { get; private set; } = new List<IDamageModifier>();
+    public float Health => HP;
 
+    public static List<IDamageModifier> DamageModifiers { get; private set; } = new List<IDamageModifier>();
     private float timer;
 
     private void Awake()
@@ -49,31 +54,48 @@ public class EnemyShip : MonoBehaviour
             m.ModifyDamage(ref damage, ref evade);
         }
 
-        float random = Random.value;
+        float random = UnityEngine.Random.value;
         if (random > evade)
         {
             List<ShipModule> viableModules = new List<ShipModule>();
             foreach (var m in modules)
             {
-                if(!m.Broken && m.CurrentEffect == ShipModule.Effect.None)
+                if(!m.Broken)
                 {
                     viableModules.Add(m);
                 }
             }
 
-            if(Random.value < moduleHitChance && viableModules.Count > 0)
+            if(UnityEngine.Random.value < moduleHitChance && viableModules.Count > 0)
             {
                 viableModules.Shuffle();
-                viableModules[0].Attack(damage);
+                ShipModule shipModule = viableModules[0];
+                ShotAt(shipModule.transform.position)
+                    .OnComplete(() => shipModule.Attack(damage));
             }
             else
             {
-                // Attacking of random point
+                Transform hitpoint = randomHitpoints[UnityEngine.Random.Range(0, randomHitpoints.Length)];
+                ShotAt(hitpoint.position)
+                    .OnComplete(() => PlayersShip.Damage(damage));
             }
         }
         else
         {
             // Attacking nothing
         }
+    }
+
+    private Tween ShotAt(Vector3 position)
+    {
+        var ob = Instantiate(pewEffect);
+        ob.position = UnityEngine.Random.insideUnitCircle.normalized * 100;
+        ob.right = position - ob.position;
+
+        var sequence = DOTween.Sequence();
+        sequence.Append(ob.DOMove(position, 2f).SetEase(Ease.Linear));
+        sequence.AppendCallback(() => Destroy(ob.gameObject));
+
+        return sequence;
     }
 }
