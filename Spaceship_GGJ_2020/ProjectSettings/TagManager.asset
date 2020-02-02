@@ -39,6 +39,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 252692551
+    locked: 0
+  - name: Interactive
+    uniqueID: 1589494597
+    locked: 0
+  - name: Additions_Bottom
+    uniqueID: 2992402625
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Additions_Top
+    uniqueID: 713601971
+    locked: 0
+  - name: Exterior
+    uniqueID: 1715814855
     locked: 0
