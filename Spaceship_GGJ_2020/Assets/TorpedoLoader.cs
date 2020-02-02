@@ -7,35 +7,43 @@ using DG.Tweening;
 
 public class TorpedoLoader : MonoBehaviour
 {
-    [SerializeField] private Transform TheTorpedo = null;
-    [SerializeField] private Transform TheStart = null;
-    [SerializeField] private Transform TheLaunch = null;
-    [Space]
+    [SerializeField] private Transform theTorpedo = null;
+    [SerializeField] private Transform theStart = null;
+    [SerializeField] private Transform theLaunch = null;
+    [Space]                            
     [SerializeField] private float slidingTime = 5f;
 
     private Animator animator;
-    private Action callback;
     private bool isLoading;
+
+    public bool TheTorpedoInBay { get; private set; } = true;
+    public Transform TheTorpedo => theTorpedo;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void LoadTorpedo(Action callback)
+    public void LoadTorpedo()
     {
-        if (isLoading)
+        if (isLoading || TheTorpedoInBay)
             return;
         animator.SetTrigger("Load");
-        this.callback = callback;
         isLoading = true;
     }
 
     public void LoadedTorpedo()
     {
+        
         isLoading = false;
         TheTorpedo.gameObject.SetActive(true);
-        TheTorpedo.position = TheStart.position;
-        TheTorpedo.DOMove(TheLaunch.position, slidingTime);
+        TheTorpedo.position = theStart.position;
+        TheTorpedo.DOMove(theLaunch.position, slidingTime).SetEase(Ease.Linear)
+            .OnComplete(() => { TheTorpedoInBay = true; });
+    }
+
+    public void TorpedoTaken()
+    {
+        TheTorpedoInBay = false;
     }
 }
