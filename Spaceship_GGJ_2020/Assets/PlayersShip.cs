@@ -10,4 +10,10 @@ public class PlayersShip : MonoBehaviour
     {
         HP = 1;
     }
+
+    public void Damage(float damage)
+    {
+        Debug.Log($"[FIGHT]  Player Damaged ({damage})");
+        HP -= damage;
+    }
 }

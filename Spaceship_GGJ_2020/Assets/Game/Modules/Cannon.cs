@@ -8,6 +8,8 @@ public class Cannon : ShipModule
     [SerializeField] private float damage = 0.05f;
     [Space]
     [SerializeField] private GameDirector director = null;
+    [Space]
+    [SerializeField] private Animator animator;
     float timer;
 
     protected override void Update()
@@ -31,6 +33,7 @@ public class Cannon : ShipModule
 
     private void Shot()
     {
+        animator.SetTrigger("Shot");
         director.Enemy.Damage(damage);
     }
 }
