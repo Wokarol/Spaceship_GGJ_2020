@@ -37,6 +37,11 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
 
     protected virtual void Update()
     {
+        if(stability == 0)
+        {
+            Broken = true;
+        }
+
         switch (currentEffect)
         {
             case Effect.None:
@@ -45,11 +50,6 @@ public abstract class ShipModule : MonoBehaviour, IShipModule
             case Effect.Fire:
                 stability = Mathf.MoveTowards(stability, 0, config.FireStabilitySpeed * Time.deltaTime);
                 break;
-        }
-
-        if(IsWorking && stability == 0)
-        {
-            Broken = true;
         }
 
         fireEffect.SetActive(currentEffect == Effect.Fire);
