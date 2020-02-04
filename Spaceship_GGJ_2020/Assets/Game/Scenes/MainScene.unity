@@ -8890,7 +8890,7 @@ MonoBehaviour:
   director: {fileID: 378055591}
   stability: 1
   currentEffect: 0
-  multiplier: 0.5
+  multiplier: 0.7
 --- !u!1 &1210909626
 GameObject:
   m_ObjectHideFlags: 0
@@ -9035,7 +9035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01df1facecae774459b84f20789e06a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokenSprite: {fileID: 21300000, guid: a52786d8daf33bd48b1377c888236fab, type: 3}
+  brokenSprite: {fileID: 21300000, guid: a1585c146f504254cab41e9cfb8f3995, type: 3}
   optionalAnimatorToStop: {fileID: 0}
 --- !u!1001 &1216300116
 PrefabInstance:
@@ -14630,7 +14630,7 @@ MonoBehaviour:
   stability: 1
   currentEffect: 0
   casualShootingInterval: 4
-  timeToAttack: 8
+  timeToAttack: 3
   firstTimeToAttack: 0
   animator: {fileID: 1627547709}
   enemy: {fileID: 4187210076788269154, guid: 30a0ab6d4ec3dd84d92b2920ae61ba10, type: 3}
