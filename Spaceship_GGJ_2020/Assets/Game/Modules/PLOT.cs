@@ -67,7 +67,7 @@ public class PLOT : ShipModule
 
         potentialNodes.Shuffle();
         ModuleNode node = potentialNodes[0];
-        enemy = Instantiate(enemy, node.transform.position, Quaternion.identity);
-        enemy.Target(node.Module);
+        var createdEnemy = Instantiate(enemy, node.transform.position, Quaternion.identity);
+        createdEnemy.Target(node.Module);
     }
 }
