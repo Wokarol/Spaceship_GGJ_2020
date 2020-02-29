@@ -20,12 +20,29 @@ public class EnemyShip : MonoBehaviour
     public PlayersShip PlayersShip { get; set; } = null;
     public float Health => HP;
 
+    List<float>[] options = new List<float>[2];
+    int currentPoolIndex = 0; 
+
     public static List<IDamageModifier> DamageModifiers { get; private set; } = new List<IDamageModifier>();
     private float timer;
 
     private void Awake()
     {
         HP = 1;
+
+        GenerateRNGPool(0, 10);
+        GenerateRNGPool(1, 10);
+    }
+
+    private void GenerateRNGPool(int id, int pool)
+    {
+        options[id] = new List<float>();
+        for (int i = 0; i < pool; i++)
+        {
+            options[id].Add(i / (float)pool);
+        }
+
+        options[id].Shuffle();
     }
 
     public void Damage(float damage)
@@ -44,6 +61,21 @@ public class EnemyShip : MonoBehaviour
         }
     }
 
+    private float GetRandom(int id)
+    {
+        float random = options[id][currentPoolIndex];
+        Debug.Log($"RNG: {random.ToString("F2")}");
+
+        currentPoolIndex += 1;
+        if(currentPoolIndex >= options[id].Count)
+        {
+            currentPoolIndex = 0;
+            options[id].Shuffle();
+        }
+
+        return random;
+    }
+
     private void ShotPlayer()
     {
         float damage = baseDamage;
@@ -54,7 +86,7 @@ public class EnemyShip : MonoBehaviour
             m.ModifyDamage(ref damage, ref evade);
         }
 
-        float random = UnityEngine.Random.value;
+        float random = GetRandom(0);
         if (random > evade)
         {
             List<ShipModule> viableModules = new List<ShipModule>();
@@ -66,7 +98,7 @@ public class EnemyShip : MonoBehaviour
                 }
             }
 
-            if(UnityEngine.Random.value < moduleHitChance && viableModules.Count > 0)
+            if(GetRandom(1) < moduleHitChance && viableModules.Count > 0)
             {
                 viableModules.Shuffle();
                 ShipModule shipModule = viableModules[0];
