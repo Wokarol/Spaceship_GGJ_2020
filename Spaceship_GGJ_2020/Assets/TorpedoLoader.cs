@@ -42,12 +42,13 @@ public class TorpedoLoader : MonoBehaviour
         TheTorpedo.gameObject.SetActive(true);
         TheTorpedo.position = theStart.position;
         tween = TheTorpedo.DOMove(theLaunch.position, slidingTime).SetEase(Ease.Linear)
-            .OnComplete(() => { TheTorpedoInBay = true; });
+            .OnComplete(() => { TheTorpedoInBay = true; animator.SetTrigger("Loaded"); });
     }
 
     public void TorpedoTaken()
     {
         TheTorpedoInBay = false;
+        animator.SetTrigger("Shoot");
     }
 
     public void SetTimeScale(float scale)
