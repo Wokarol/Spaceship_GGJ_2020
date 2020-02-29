@@ -64,7 +64,6 @@ public class EnemyShip : MonoBehaviour
     private float GetRandom(int id)
     {
         float random = options[id][currentPoolIndex];
-        Debug.Log($"RNG: {random.ToString("F2")}");
 
         currentPoolIndex += 1;
         if(currentPoolIndex >= options[id].Count)
